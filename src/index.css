@@ -77,20 +77,20 @@
     z-index: 0;
     pointer-events: none;
     background: 
-      radial-gradient(circle 1000px at 0% 0%, hsl(280 100% 50% / 0.15), transparent),
-      radial-gradient(circle 800px at 100% 100%, hsl(200 100% 50% / 0.12), transparent),
-      radial-gradient(circle 600px at 30% 70%, hsl(330 100% 50% / 0.08), transparent),
-      radial-gradient(circle 400px at 80% 20%, hsl(180 100% 50% / 0.06), transparent);
+      radial-gradient(circle 900px at 0% 0%, hsl(280 100% 50% / 0.25), transparent),
+      radial-gradient(circle 700px at 100% 100%, hsl(200 100% 50% / 0.2), transparent),
+      radial-gradient(circle 500px at 30% 70%, hsl(330 100% 50% / 0.15), transparent),
+      radial-gradient(circle 400px at 80% 20%, hsl(180 100% 50% / 0.12), transparent);
   }
 
   .glass-container {
-    background: hsl(225 25% 8% / 0.85);
-    backdrop-filter: blur(40px);
-    -webkit-backdrop-filter: blur(40px);
-    border: 1px solid hsl(0 0% 100% / 0.08);
+    background: hsl(225 30% 10% / 0.35);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid hsl(0 0% 100% / 0.1);
     box-shadow: 
-      0 25px 50px -12px hsl(0 0% 0% / 0.4),
-      inset 0 1px 0 hsl(0 0% 100% / 0.05);
+      0 25px 50px -12px hsl(0 0% 0% / 0.25),
+      inset 0 1px 0 hsl(0 0% 100% / 0.06);
   }
 
   .glass-card {
