@@ -126,8 +126,8 @@ export function StoreDashboard() {
             {/* Balance */}
             <div className="flex items-center gap-6">
               <div className="flex items-center gap-3">
-                <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-emerald-400/20 to-emerald-600/20 border border-emerald-400/30 flex items-center justify-center">
-                  <Wallet className="w-5 h-5 text-emerald-400" />
+                <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-white/10 to-white/5 border border-white/15 flex items-center justify-center">
+                  <Wallet className="w-5 h-5 text-white/50" />
                 </div>
                 <div>
                   <p className="text-xs text-white/50 uppercase tracking-wider">Баланс</p>
@@ -137,11 +137,14 @@ export function StoreDashboard() {
                 </div>
               </div>
               <div className="h-10 w-px bg-white/10" />
-              <div className="flex items-center gap-1.5 px-3 py-1.5 bg-positive/15 border border-positive/25 rounded">
-                <ArrowUpRight className="w-4 h-4 text-positive" />
-                <span className="text-sm font-semibold tabular-nums text-positive">
-                  +{formatCurrency(balanceChange)}
-                </span>
+              <div className="flex flex-col items-center gap-0.5">
+                <div className="flex items-center gap-1.5 px-3 py-1.5 bg-positive/15 border border-positive/25 rounded">
+                  <ArrowUpRight className="w-4 h-4 text-positive" />
+                  <span className="text-sm font-semibold tabular-nums text-positive">
+                    +{formatCurrency(balanceChange)}
+                  </span>
+                </div>
+                <span className="text-[10px] text-white/40">за сегодня</span>
               </div>
             </div>
           </div>
