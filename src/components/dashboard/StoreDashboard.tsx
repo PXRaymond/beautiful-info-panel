@@ -1,4 +1,4 @@
-import { ArrowUpRight, ArrowDownRight } from "lucide-react";
+import { ArrowUpRight, TrendingUp, TrendingDown, Wallet, CreditCard, PiggyBank, Receipt } from "lucide-react";
 
 const formatCurrency = (value: number) => {
   return new Intl.NumberFormat('ru-RU', {
@@ -6,52 +6,106 @@ const formatCurrency = (value: number) => {
     currency: 'RUB',
     minimumFractionDigits: 0,
     maximumFractionDigits: 0,
-  }).format(value);
+  }).format(Math.abs(value));
 };
 
 interface StatItemProps {
   label: string;
   value: number;
-  showSign?: boolean;
+  total: number;
 }
 
-function StatItem({ label, value, showSign }: StatItemProps) {
-  const isNegative = value < 0;
+function StatItem({ label, value, total }: StatItemProps) {
+  const percentage = (value / total) * 100;
   
   return (
-    <div className="flex items-center justify-between py-3 border-b border-border last:border-0">
-      <span className="text-muted-foreground text-sm">{label}</span>
-      <span className={`text-sm font-medium tabular-nums ${
-        showSign 
-          ? isNegative 
-            ? 'text-destructive' 
-            : 'text-positive'
-          : ''
-      }`}>
-        {showSign && !isNegative && '+'}
-        {formatCurrency(value)}
-      </span>
+    <div className="group py-3">
+      <div className="flex items-center justify-between mb-2">
+        <span className="text-muted-foreground text-sm group-hover:text-foreground transition-colors">
+          {label}
+        </span>
+        <span className="text-sm font-medium tabular-nums">
+          {formatCurrency(value)}
+        </span>
+      </div>
+      <div className="h-1 bg-secondary rounded-full overflow-hidden">
+        <div 
+          className="h-full bg-gradient-to-r from-muted-foreground/50 to-muted-foreground/30 rounded-full transition-all duration-500"
+          style={{ width: `${percentage}%` }}
+        />
+      </div>
     </div>
   );
 }
 
-interface CardProps {
+interface MetricCardProps {
   title: string;
-  children: React.ReactNode;
-  className?: string;
+  value: number;
+  icon: React.ElementType;
+  type?: 'default' | 'positive' | 'negative';
   delay?: number;
 }
 
-function Card({ title, children, className = "", delay = 0 }: CardProps) {
+function MetricCard({ title, value, icon: Icon, type = 'default', delay = 0 }: MetricCardProps) {
+  const colorClass = type === 'positive' 
+    ? 'text-positive' 
+    : type === 'negative' 
+      ? 'text-destructive' 
+      : '';
+
   return (
     <div 
-      className={`bg-card border border-border rounded-xl p-5 animate-fade-in ${className}`}
+      className="bg-card border border-border rounded-2xl p-5 card-hover animate-fade-up"
       style={{ animationDelay: `${delay}ms` }}
     >
-      <h3 className="text-xs font-medium text-muted-foreground uppercase tracking-wide mb-4">
-        {title}
-      </h3>
-      {children}
+      <div className="flex items-center gap-3 mb-4">
+        <div className="w-9 h-9 rounded-xl bg-secondary flex items-center justify-center">
+          <Icon className="w-4 h-4 text-muted-foreground" />
+        </div>
+        <span className="text-xs font-medium text-muted-foreground uppercase tracking-wide">
+          {title}
+        </span>
+      </div>
+      <p className={`text-2xl font-semibold tabular-nums ${colorClass}`}>
+        {type === 'positive' && '+'}
+        {type === 'negative' && '−'}
+        {formatCurrency(value)}
+      </p>
+    </div>
+  );
+}
+
+interface BreakdownCardProps {
+  title: string;
+  total: number;
+  items: { label: string; value: number }[];
+  delay?: number;
+}
+
+function BreakdownCard({ title, total, items, delay = 0 }: BreakdownCardProps) {
+  return (
+    <div 
+      className="bg-card border border-border rounded-2xl p-5 animate-fade-up"
+      style={{ animationDelay: `${delay}ms` }}
+    >
+      <div className="flex items-center justify-between mb-5">
+        <span className="text-xs font-medium text-muted-foreground uppercase tracking-wide">
+          {title}
+        </span>
+        <span className="text-lg font-semibold tabular-nums">
+          {formatCurrency(total)}
+        </span>
+      </div>
+      <div className="space-y-1">
+        {items.map((item) => (
+          <StatItem 
+            key={item.label} 
+            label={item.label} 
+            value={item.value}
+            total={total}
+          />
+        ))}
+      </div>
     </div>
   );
 }
@@ -62,8 +116,8 @@ export function StoreDashboard() {
 
   const metrics = {
     salesAndReturns: 149226,
-    charges: -62065,
-    paid: -59184,
+    charges: 62065,
+    paid: 59184,
     totalCharged: 87160,
   };
 
@@ -82,96 +136,91 @@ export function StoreDashboard() {
 
   return (
     <div className="min-h-screen bg-background">
-      <div className="max-w-5xl mx-auto px-6 py-12 md:py-16">
+      <div className="max-w-5xl mx-auto px-6 py-12 md:py-20">
         {/* Header */}
-        <header className="mb-12 animate-fade-in">
-          <p className="text-sm text-muted-foreground mb-1">
+        <header className="mb-16 animate-fade-up">
+          <p className="text-sm text-muted-foreground mb-2">
             1 – 17 декабря 2024
           </p>
-          <h1 className="text-2xl font-semibold tracking-tight">
+          <h1 className="text-3xl md:text-4xl font-semibold tracking-tight text-gradient">
             Экономика магазина
           </h1>
         </header>
 
-        {/* Balance */}
+        {/* Balance Hero */}
         <div 
-          className="mb-12 animate-fade-in" 
-          style={{ animationDelay: "50ms" }}
+          className="mb-16 animate-fade-up" 
+          style={{ animationDelay: "100ms" }}
         >
-          <p className="text-sm text-muted-foreground mb-2">Баланс</p>
-          <div className="flex items-baseline gap-4">
-            <span className="text-5xl md:text-6xl font-semibold tracking-tight tabular-nums">
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-positive/10 border border-positive/20 rounded-full mb-6">
+            <div className="w-2 h-2 rounded-full bg-positive animate-pulse" />
+            <span className="text-xs font-medium text-positive">Баланс растёт</span>
+          </div>
+          
+          <div className="flex flex-col md:flex-row md:items-end gap-4">
+            <span 
+              className="text-6xl md:text-7xl font-bold tracking-tighter tabular-nums animate-number-in"
+              style={{ animationDelay: "200ms" }}
+            >
               {formatCurrency(balance)}
             </span>
-            <div className={`flex items-center gap-1 text-sm font-medium ${
-              balanceChange >= 0 ? 'text-positive' : 'text-destructive'
-            }`}>
-              {balanceChange >= 0 ? (
-                <ArrowUpRight className="w-4 h-4" />
-              ) : (
-                <ArrowDownRight className="w-4 h-4" />
-              )}
-              <span className="tabular-nums">
-                {balanceChange >= 0 ? '+' : ''}{formatCurrency(balanceChange)}
-              </span>
+            <div className="flex items-center gap-2 pb-2">
+              <div className="flex items-center gap-1 text-positive">
+                <ArrowUpRight className="w-5 h-5" />
+                <span className="text-lg font-medium tabular-nums">
+                  +{formatCurrency(balanceChange)}
+                </span>
+              </div>
+              <span className="text-muted-foreground text-sm">за период</span>
             </div>
           </div>
         </div>
 
         {/* Main Metrics Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-          <Card title="Продажи и возвраты" delay={100}>
-            <p className="text-2xl font-semibold tabular-nums">
-              {formatCurrency(metrics.salesAndReturns)}
-            </p>
-          </Card>
-          
-          <Card title="Начисления" delay={150}>
-            <p className="text-2xl font-semibold tabular-nums text-destructive">
-              {formatCurrency(metrics.charges)}
-            </p>
-          </Card>
-          
-          <Card title="Выплачено" delay={200}>
-            <p className="text-2xl font-semibold tabular-nums text-destructive">
-              {formatCurrency(metrics.paid)}
-            </p>
-          </Card>
-          
-          <Card title="Итого начислено" delay={250}>
-            <p className="text-2xl font-semibold tabular-nums text-positive">
-              +{formatCurrency(metrics.totalCharged)}
-            </p>
-          </Card>
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-8">
+          <MetricCard 
+            title="Продажи" 
+            value={metrics.salesAndReturns}
+            icon={Wallet}
+            delay={300}
+          />
+          <MetricCard 
+            title="Начисления" 
+            value={metrics.charges}
+            icon={Receipt}
+            type="negative"
+            delay={350}
+          />
+          <MetricCard 
+            title="Выплачено" 
+            value={metrics.paid}
+            icon={CreditCard}
+            type="negative"
+            delay={400}
+          />
+          <MetricCard 
+            title="Итого" 
+            value={metrics.totalCharged}
+            icon={PiggyBank}
+            type="positive"
+            delay={450}
+          />
         </div>
 
         {/* Breakdown */}
-        <div className="grid md:grid-cols-2 gap-4">
-          <Card title="Доходы" delay={300}>
-            <div className="mb-4">
-              <span className="text-2xl font-semibold tabular-nums">
-                {formatCurrency(income.reduce((a, b) => a + b.value, 0))}
-              </span>
-            </div>
-            <div>
-              {income.map((item) => (
-                <StatItem key={item.label} label={item.label} value={item.value} />
-              ))}
-            </div>
-          </Card>
-          
-          <Card title="Расходы" delay={350}>
-            <div className="mb-4">
-              <span className="text-2xl font-semibold tabular-nums">
-                {formatCurrency(expenses.reduce((a, b) => a + b.value, 0))}
-              </span>
-            </div>
-            <div>
-              {expenses.map((item) => (
-                <StatItem key={item.label} label={item.label} value={item.value} />
-              ))}
-            </div>
-          </Card>
+        <div className="grid md:grid-cols-2 gap-3">
+          <BreakdownCard 
+            title="Структура доходов" 
+            total={income.reduce((a, b) => a + b.value, 0)}
+            items={income}
+            delay={500}
+          />
+          <BreakdownCard 
+            title="Структура расходов" 
+            total={expenses.reduce((a, b) => a + b.value, 0)}
+            items={expenses}
+            delay={550}
+          />
         </div>
       </div>
     </div>
