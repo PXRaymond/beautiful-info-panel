@@ -6,46 +6,46 @@
 
 @layer base {
   :root {
-    --background: 220 25% 8%;
+    --background: 225 30% 6%;
     --foreground: 0 0% 98%;
 
-    --card: 220 20% 12%;
+    --card: 225 25% 10%;
     --card-foreground: 0 0% 98%;
 
-    --popover: 220 20% 12%;
+    --popover: 225 25% 10%;
     --popover-foreground: 0 0% 98%;
 
     --primary: 0 0% 98%;
-    --primary-foreground: 220 25% 8%;
+    --primary-foreground: 225 30% 6%;
 
-    --secondary: 220 15% 18%;
+    --secondary: 225 20% 15%;
     --secondary-foreground: 0 0% 98%;
 
-    --muted: 220 15% 18%;
-    --muted-foreground: 220 10% 55%;
+    --muted: 225 20% 15%;
+    --muted-foreground: 225 15% 55%;
 
-    --accent: 220 15% 18%;
+    --accent: 225 20% 15%;
     --accent-foreground: 0 0% 98%;
 
     --destructive: 0 72% 55%;
     --destructive-foreground: 0 0% 98%;
 
-    --positive: 150 80% 45%;
+    --positive: 160 85% 45%;
     --positive-foreground: 0 0% 98%;
 
-    --border: 220 15% 20%;
-    --input: 220 15% 20%;
+    --border: 225 20% 18%;
+    --input: 225 20% 18%;
     --ring: 0 0% 98%;
 
     --radius: 1rem;
 
-    --sidebar-background: 220 25% 6%;
+    --sidebar-background: 225 30% 5%;
     --sidebar-foreground: 0 0% 98%;
     --sidebar-primary: 0 0% 98%;
-    --sidebar-primary-foreground: 220 25% 8%;
-    --sidebar-accent: 220 15% 18%;
+    --sidebar-primary-foreground: 225 30% 6%;
+    --sidebar-accent: 225 20% 15%;
     --sidebar-accent-foreground: 0 0% 98%;
-    --sidebar-border: 220 15% 20%;
+    --sidebar-border: 225 20% 18%;
     --sidebar-ring: 0 0% 98%;
   }
 }
@@ -77,31 +77,45 @@
     z-index: 0;
     pointer-events: none;
     background: 
-      radial-gradient(circle 900px at 0% 0%, hsl(280 100% 50% / 0.12), transparent),
-      radial-gradient(circle 700px at 100% 100%, hsl(200 100% 50% / 0.1), transparent),
-      radial-gradient(circle 500px at 50% 80%, hsl(330 100% 50% / 0.08), transparent);
+      radial-gradient(circle 1000px at 0% 0%, hsl(280 100% 50% / 0.15), transparent),
+      radial-gradient(circle 800px at 100% 100%, hsl(200 100% 50% / 0.12), transparent),
+      radial-gradient(circle 600px at 30% 70%, hsl(330 100% 50% / 0.08), transparent),
+      radial-gradient(circle 400px at 80% 20%, hsl(180 100% 50% / 0.06), transparent);
   }
 
-  .glass-card {
-    background: hsl(220 20% 12% / 0.6);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid hsl(220 15% 25% / 0.5);
+  .glass-container {
+    background: hsl(225 25% 8% / 0.85);
+    backdrop-filter: blur(40px);
+    -webkit-backdrop-filter: blur(40px);
+    border: 1px solid hsl(0 0% 100% / 0.08);
     box-shadow: 
-      0 4px 30px hsl(0 0% 0% / 0.2),
+      0 25px 50px -12px hsl(0 0% 0% / 0.4),
       inset 0 1px 0 hsl(0 0% 100% / 0.05);
   }
 
+  .glass-card {
+    background: hsl(225 25% 12% / 0.4);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid hsl(0 0% 100% / 0.06);
+    box-shadow: inset 0 1px 0 hsl(0 0% 100% / 0.04);
+    transition: all 0.3s ease;
+  }
+
   .glass-card:hover {
-    border-color: hsl(220 15% 30% / 0.6);
-    background: hsl(220 20% 14% / 0.7);
+    background: hsl(225 25% 14% / 0.5);
+    border-color: hsl(0 0% 100% / 0.1);
+    transform: translateY(-2px);
+    box-shadow: 
+      0 10px 40px -10px hsl(0 0% 0% / 0.3),
+      inset 0 1px 0 hsl(0 0% 100% / 0.06);
   }
 }
 
 @keyframes fade-up {
   from { 
     opacity: 0; 
-    transform: translateY(16px); 
+    transform: translateY(20px); 
   }
   to { 
     opacity: 1; 
@@ -110,5 +124,5 @@
 }
 
 .animate-fade-up {
-  animation: fade-up 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation: fade-up 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
