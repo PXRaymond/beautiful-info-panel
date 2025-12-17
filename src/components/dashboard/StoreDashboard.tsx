@@ -155,67 +155,76 @@ export function StoreDashboard() {
           {/* Cards Grid */}
           <div className="grid grid-cols-1 lg:grid-cols-10 gap-4">
             {/* Sales Card */}
-            <div className="lg:col-span-3 glass-card rounded-2xl p-5 bg-gradient-to-br from-teal-500/[0.08] via-teal-600/[0.04] to-transparent">
-              <h3 className="text-sm font-medium mb-3 text-emerald-400">Продажи и возвраты</h3>
-              <p className="text-2xl font-bold tabular-nums text-emerald-400 mb-4">{formatCurrency(salesTotal)}</p>
-              
-              <div className="h-1.5 bg-white/5 rounded-full overflow-hidden mb-5">
-                <div className="h-full bg-gradient-to-r from-emerald-400 to-emerald-300 rounded-full w-full" />
-              </div>
+            <div className="lg:col-span-3 relative overflow-hidden rounded-2xl p-5 border border-emerald-500/20 bg-gradient-to-br from-emerald-500/15 via-teal-500/10 to-transparent backdrop-blur-xl shadow-[0_0_30px_-5px_rgba(16,185,129,0.15)] hover:shadow-[0_0_40px_-5px_rgba(16,185,129,0.25)] transition-all duration-300">
+              <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_rgba(16,185,129,0.15),transparent_60%)]" />
+              <div className="relative">
+                <h3 className="text-sm font-medium mb-3 text-emerald-400">Продажи и возвраты</h3>
+                <p className="text-2xl font-bold tabular-nums text-emerald-400 mb-4">{formatCurrency(salesTotal)}</p>
+                
+                <div className="h-1.5 bg-white/5 rounded-full overflow-hidden mb-5">
+                  <div className="h-full bg-gradient-to-r from-emerald-400 to-emerald-300 rounded-full w-full" />
+                </div>
 
-              <div className="space-y-0.5">
-                {salesItems.map(item => <ListItem key={item.label} {...item} />)}
+                <div className="space-y-0.5">
+                  {salesItems.map(item => <ListItem key={item.label} {...item} />)}
+                </div>
               </div>
             </div>
 
             {/* Charges Card */}
-            <div className="lg:col-span-5 glass-card rounded-2xl p-5 bg-gradient-to-br from-rose-500/[0.08] via-rose-600/[0.04] to-transparent">
-              <div className="flex items-start justify-between mb-3">
-                <h3 className="text-sm font-medium text-pink-400">Начисления</h3>
-                <p className="text-xs text-white/50">
-                  Итого: <span className="text-white/80 font-medium">{formatCurrency(87160)}</span>
+            <div className="lg:col-span-5 relative overflow-hidden rounded-2xl p-5 border border-rose-500/20 bg-gradient-to-br from-rose-500/15 via-pink-500/10 to-transparent backdrop-blur-xl shadow-[0_0_30px_-5px_rgba(244,63,94,0.15)] hover:shadow-[0_0_40px_-5px_rgba(244,63,94,0.25)] transition-all duration-300">
+              <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,_rgba(244,63,94,0.12),transparent_60%)]" />
+              <div className="relative">
+                <div className="flex items-start justify-between mb-3">
+                  <h3 className="text-sm font-medium text-pink-400">Начисления</h3>
+                  <p className="text-xs text-white/50">
+                    Итого: <span className="text-white/80 font-medium">{formatCurrency(87160)}</span>
+                  </p>
+                </div>
+                
+                <p className="text-2xl font-bold tabular-nums text-pink-400 mb-4">
+                  −{formatCurrency(chargesTotal)}
                 </p>
-              </div>
-              
-              <p className="text-2xl font-bold tabular-nums text-pink-400 mb-4">
-                −{formatCurrency(chargesTotal)}
-              </p>
-              
-              <div className="mb-5">
-                <SegmentedBar segments={chargeSegments} total={chargesTotal} />
-              </div>
+                
+                <div className="mb-5">
+                  <SegmentedBar segments={chargeSegments} total={chargesTotal} />
+                </div>
 
-              <div className="grid grid-cols-2 gap-x-6 gap-y-0.5">
-                {displayedCharges.map(item => <div key={item.label} className="flex items-center justify-between py-1.5">
-                    <div className="flex items-center gap-2">
-                      <div className={`w-2 h-2 rounded-full ${item.color}`} />
-                      <span className="text-sm text-white/70 truncate max-w-[120px]">{item.label}</span>
-                    </div>
-                    <span className="text-sm font-medium tabular-nums text-white/90">−{formatCurrency(item.value)}</span>
-                  </div>)}
-              </div>
+                <div className="grid grid-cols-2 gap-x-6 gap-y-0.5">
+                  {displayedCharges.map(item => <div key={item.label} className="flex items-center justify-between py-1.5">
+                      <div className="flex items-center gap-2">
+                        <div className={`w-2 h-2 rounded-full ${item.color}`} />
+                        <span className="text-sm text-white/70 truncate max-w-[120px]">{item.label}</span>
+                      </div>
+                      <span className="text-sm font-medium tabular-nums text-white/90">−{formatCurrency(item.value)}</span>
+                    </div>)}
+                </div>
 
-              <button onClick={() => setShowAllCharges(!showAllCharges)} className="flex items-center gap-1 text-sm text-cyan-400 hover:text-cyan-300 transition-colors mt-4">
-                <span>Посмотреть всё</span>
-                <ChevronDown className={`w-4 h-4 transition-transform ${showAllCharges ? 'rotate-180' : ''}`} />
-              </button>
+                <button onClick={() => setShowAllCharges(!showAllCharges)} className="flex items-center gap-1 text-sm text-cyan-400 hover:text-cyan-300 transition-colors mt-4">
+                  <span>Посмотреть всё</span>
+                  <ChevronDown className={`w-4 h-4 transition-transform ${showAllCharges ? 'rotate-180' : ''}`} />
+                </button>
+              </div>
             </div>
 
             {/* Summary Card */}
-            <div className="lg:col-span-2 glass-card rounded-2xl p-5 bg-gradient-to-br from-sky-500/[0.08] via-sky-600/[0.04] to-transparent">
-              <h3 className="text-sm font-medium text-white/80 mb-5">Списания</h3>
-              
-              <div className="space-y-6">
-                <div>
-                  <p className="text-xs text-white/50 uppercase tracking-wider mb-1">Выплачено</p>
-                  <p className="text-2xl font-bold tabular-nums text-orange-400">−{formatCurrency(59184)}</p>
-                </div>
+            <div className="lg:col-span-2 relative overflow-hidden rounded-2xl p-5 border border-sky-500/20 bg-gradient-to-br from-sky-500/15 via-cyan-500/10 to-transparent backdrop-blur-xl shadow-[0_0_30px_-5px_rgba(14,165,233,0.15)] hover:shadow-[0_0_40px_-5px_rgba(14,165,233,0.25)] transition-all duration-300">
+              <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_right,_rgba(14,165,233,0.12),transparent_60%)]" />
+              <div className="relative">
+                <h3 className="text-sm font-medium text-white/80 mb-5">Списания</h3>
                 
-                <div className="h-px bg-white/5" />
-                
-                <div>
-                  <p className="text-xs text-white/50 uppercase tracking-wider mb-1">Итого начислено</p>
-                  <p className="text-2xl font-bold tabular-nums text-emerald-400">+{formatCurrency(87160)}</p>
+                <div className="space-y-6">
+                  <div>
+                    <p className="text-xs text-white/50 uppercase tracking-wider mb-1">Выплачено</p>
+                    <p className="text-2xl font-bold tabular-nums text-orange-400">−{formatCurrency(59184)}</p>
+                  </div>
+                  
+                  <div className="h-px bg-white/5" />
+                  
+                  <div>
+                    <p className="text-xs text-white/50 uppercase tracking-wider mb-1">Итого начислено</p>
+                    <p className="text-2xl font-bold tabular-nums text-emerald-400">+{formatCurrency(87160)}</p>
+                  </div>
                 </div>
               </div>
             </div>
