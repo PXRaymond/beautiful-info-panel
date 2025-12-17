@@ -53,50 +53,50 @@ export function StoreDashboard() {
   const salesItems = [{
     label: "Выручка",
     value: 116712,
-    color: "bg-cyan-400"
+    color: "bg-emerald-400"
   }, {
     label: "Программы партнёров",
     value: 1013,
-    color: "bg-cyan-400"
+    color: "bg-emerald-400"
   }, {
     label: "Баллы за скидки",
     value: 31501,
-    color: "bg-cyan-400"
+    color: "bg-emerald-400"
   }];
   const chargesTotal = 62065;
   const chargesItems = [{
     label: "Вознаграждение Ozon",
     value: 31104,
-    color: segmentColors.blue
+    color: "bg-rose-400"
   }, {
     label: "Услуги доставки",
     value: 18687,
-    color: segmentColors.orange
+    color: "bg-amber-400"
   }, {
     label: "Услуги агентов",
     value: 12264,
-    color: segmentColors.purple
+    color: "bg-violet-400"
   }, {
     label: "Другие услуги",
     value: 10,
-    color: segmentColors.yellow
+    color: "bg-sky-400"
   }, {
     label: "Компенсации",
     value: 0,
-    color: segmentColors.gray
+    color: "bg-slate-400"
   }];
   const chargeSegments = [{
     value: 31104,
-    color: segmentColors.blue
+    color: "bg-rose-400"
   }, {
     value: 18687,
-    color: segmentColors.orange
+    color: "bg-amber-400"
   }, {
     value: 12264,
-    color: segmentColors.purple
+    color: "bg-violet-400"
   }, {
     value: 10,
-    color: segmentColors.yellow
+    color: "bg-sky-400"
   }];
   const displayedCharges = showAllCharges ? chargesItems : chargesItems.slice(0, 4);
   return <div className="min-h-screen relative">
@@ -146,11 +146,11 @@ export function StoreDashboard() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
             {/* Sales Card */}
             <div className="lg:col-span-3 glass-card rounded-2xl p-5">
-              <h3 className="text-sm font-medium mb-3 text-[#e8e8e8] text-justify">Продажи и возвраты</h3>
-              <p className="text-2xl font-bold tabular-nums text-white mb-4">{formatCurrency(salesTotal)}</p>
+              <h3 className="text-sm font-medium mb-3 text-emerald-400">Продажи и возвраты</h3>
+              <p className="text-2xl font-bold tabular-nums text-emerald-400 mb-4">{formatCurrency(salesTotal)}</p>
               
               <div className="h-1.5 bg-white/5 rounded-full overflow-hidden mb-5">
-                <div className="h-full bg-gradient-to-r from-cyan-400 to-cyan-300 rounded-full w-full" />
+                <div className="h-full bg-gradient-to-r from-emerald-400 to-emerald-300 rounded-full w-full" />
               </div>
 
               <div className="space-y-0.5">
@@ -193,19 +193,19 @@ export function StoreDashboard() {
 
             {/* Summary Card */}
             <div className="lg:col-span-3 glass-card rounded-2xl p-5">
-              <h3 className="text-sm font-medium text-cyan-400 mb-5">Сводка за период</h3>
+              <h3 className="text-sm font-medium text-white/80 mb-5">Списания</h3>
               
               <div className="space-y-6">
                 <div>
                   <p className="text-xs text-white/50 uppercase tracking-wider mb-1">Выплачено</p>
-                  <p className="text-2xl font-bold tabular-nums text-white">−{formatCurrency(59184)}</p>
+                  <p className="text-2xl font-bold tabular-nums text-orange-400">−{formatCurrency(59184)}</p>
                 </div>
                 
                 <div className="h-px bg-white/5" />
                 
                 <div>
                   <p className="text-xs text-white/50 uppercase tracking-wider mb-1">Итого начислено</p>
-                  <p className="text-2xl font-bold tabular-nums text-positive">+{formatCurrency(87160)}</p>
+                  <p className="text-2xl font-bold tabular-nums text-emerald-400">+{formatCurrency(87160)}</p>
                 </div>
               </div>
             </div>
