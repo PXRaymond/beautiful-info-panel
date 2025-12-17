@@ -1,4 +1,4 @@
-import { ArrowUpRight, ChevronDown, Wallet } from "lucide-react";
+import { ArrowUpRight, ChevronDown, Wallet, MapPin } from "lucide-react";
 import { useState } from "react";
 const formatCurrency = (value: number) => {
   return new Intl.NumberFormat('ru-RU').format(Math.abs(value)) + ' ₽';
@@ -99,6 +99,13 @@ export function StoreDashboard() {
     color: "bg-sky-400"
   }];
   const displayedCharges = showAllCharges ? chargesItems : chargesItems.slice(0, 4);
+
+  const deliveriesTotal = 134;
+  const deliveriesData = [
+    { region: "Москва, МО и Дальние регионы", count: 32, progress: 32/134, color: "bg-violet-500" },
+    { region: "Санкт-Петербург и СЗО", count: 12, progress: 12/134, color: "bg-cyan-400" },
+    { region: "Ростов", count: 8, progress: 8/134, color: "bg-emerald-400" },
+  ];
   return <div className="min-h-screen relative">
       <div className="gradient-bg" />
       
@@ -208,6 +215,50 @@ export function StoreDashboard() {
                   <p className="text-2xl font-bold tabular-nums text-emerald-400">+{formatCurrency(87160)}</p>
                 </div>
               </div>
+            </div>
+          </div>
+
+          {/* Deliveries Panel */}
+          <div className="mt-4 lg:w-[380px]">
+            <div className="glass-card rounded-2xl p-5 bg-gradient-to-br from-indigo-500/[0.06] via-violet-600/[0.03] to-transparent">
+              {/* Header */}
+              <div className="flex items-start justify-between mb-4">
+                <div>
+                  <h3 className="text-sm font-semibold uppercase tracking-wider text-white/90">Доставляются</h3>
+                  <p className="text-xs text-white/40 mt-0.5">Топ-3 кластера за неделю</p>
+                </div>
+                <div className="text-right">
+                  <p className="text-3xl font-bold tabular-nums text-white">{deliveriesTotal}</p>
+                  <p className="text-xs text-white/40">всего</p>
+                </div>
+              </div>
+
+              {/* Regions List */}
+              <div className="space-y-3">
+                {deliveriesData.map((item, i) => (
+                  <div key={i} className="bg-white/[0.04] backdrop-blur-sm rounded-xl p-4 border border-white/[0.06]">
+                    <div className="flex items-center justify-between mb-2">
+                      <div className="flex items-center gap-2">
+                        <div className={`w-2 h-2 rounded-full ${item.color}`} />
+                        <span className="text-sm text-white/80">{item.region}</span>
+                      </div>
+                      <span className="text-sm font-semibold tabular-nums text-white">{item.count}</span>
+                    </div>
+                    <div className="h-1 bg-white/[0.08] rounded-full overflow-hidden">
+                      <div 
+                        className={`h-full ${item.color} rounded-full transition-all duration-500`}
+                        style={{ width: `${item.progress * 100}%` }}
+                      />
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Map Button */}
+              <button className="w-full mt-4 py-3 px-4 rounded-xl bg-gradient-to-r from-cyan-500/20 to-emerald-500/20 border border-cyan-400/30 flex items-center justify-center gap-2 text-cyan-400 hover:from-cyan-500/30 hover:to-emerald-500/30 transition-all group">
+                <MapPin className="w-4 h-4 group-hover:scale-110 transition-transform" />
+                <span className="text-sm font-medium">Посмотреть карту</span>
+              </button>
             </div>
           </div>
         </div>
