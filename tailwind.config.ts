@@ -14,7 +14,8 @@ export default {
     },
     extend: {
       fontFamily: {
-        sans: ['Inter', 'system-ui', 'sans-serif'],
+        sans: ['Space Grotesk', 'system-ui', 'sans-serif'],
+        mono: ['JetBrains Mono', 'monospace'],
       },
       colors: {
         border: "hsl(var(--border))",
@@ -60,16 +61,14 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
-        positive: "hsl(var(--positive))",
-        negative: "hsl(var(--negative))",
-        warning: "hsl(var(--warning))",
-        info: "hsl(var(--info))",
-        purple: "hsl(var(--purple))",
       },
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
+        xl: "1.25rem",
+        "2xl": "1.5rem",
+        "3xl": "2rem",
       },
       keyframes: {
         "accordion-down": {
@@ -81,24 +80,29 @@ export default {
           to: { height: "0" },
         },
         "fade-in": {
-          from: { opacity: "0", transform: "translateY(10px)" },
+          from: { opacity: "0", transform: "translateY(20px)" },
           to: { opacity: "1", transform: "translateY(0)" },
         },
         "scale-in": {
-          from: { opacity: "0", transform: "scale(0.95)" },
+          from: { opacity: "0", transform: "scale(0.9)" },
           to: { opacity: "1", transform: "scale(1)" },
         },
-        "shimmer": {
-          "0%": { backgroundPosition: "-200% 0" },
-          "100%": { backgroundPosition: "200% 0" },
+        "slide-up": {
+          from: { opacity: "0", transform: "translateY(30px)" },
+          to: { opacity: "1", transform: "translateY(0)" },
+        },
+        "blur-in": {
+          from: { opacity: "0", filter: "blur(10px)" },
+          to: { opacity: "1", filter: "blur(0)" },
         },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
-        "fade-in": "fade-in 0.5s ease-out forwards",
-        "scale-in": "scale-in 0.3s ease-out forwards",
-        "shimmer": "shimmer 2s infinite linear",
+        "fade-in": "fade-in 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards",
+        "scale-in": "scale-in 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards",
+        "slide-up": "slide-up 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards",
+        "blur-in": "blur-in 0.5s ease-out forwards",
       },
     },
   },
