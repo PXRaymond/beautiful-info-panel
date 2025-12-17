@@ -135,8 +135,9 @@ export function StoreDashboard() {
   ];
 
   return (
-    <div className="min-h-screen bg-background">
-      <div className="max-w-5xl mx-auto px-6 py-12 md:py-20">
+    <div className="min-h-screen bg-background relative">
+      <div className="gradient-bg" />
+      <div className="relative z-10 max-w-5xl mx-auto px-6 py-12 md:py-20">
         {/* Header */}
         <header className="mb-16 animate-fade-up">
           <p className="text-sm text-muted-foreground mb-2">
