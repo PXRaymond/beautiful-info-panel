@@ -1,4 +1,4 @@
-import { ArrowUpRight, ChevronDown, TrendingUp } from "lucide-react";
+import { ArrowUpRight, ChevronDown, Wallet } from "lucide-react";
 import { useState } from "react";
 const formatCurrency = (value: number) => {
   return new Intl.NumberFormat('ru-RU').format(Math.abs(value)) + ' ₽';
@@ -119,8 +119,8 @@ export function StoreDashboard() {
             {/* Balance */}
             <div className="flex items-center gap-6">
               <div className="flex items-center gap-3">
-                <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-cyan-400/20 to-cyan-600/20 border border-cyan-400/30 flex items-center justify-center">
-                  <TrendingUp className="w-5 h-5 text-cyan-400" />
+                <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-emerald-400/20 to-emerald-600/20 border border-emerald-400/30 flex items-center justify-center">
+                  <Wallet className="w-5 h-5 text-emerald-400" />
                 </div>
                 <div>
                   <p className="text-xs text-white/50 uppercase tracking-wider">Баланс</p>
@@ -143,7 +143,7 @@ export function StoreDashboard() {
           <div className="h-px bg-gradient-to-r from-transparent via-white/10 to-transparent mb-8" />
 
           {/* Cards Grid */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
+          <div className="grid grid-cols-1 lg:grid-cols-10 gap-4">
             {/* Sales Card */}
             <div className="lg:col-span-3 glass-card rounded-2xl p-5">
               <h3 className="text-sm font-medium mb-3 text-emerald-400">Продажи и возвраты</h3>
@@ -159,7 +159,7 @@ export function StoreDashboard() {
             </div>
 
             {/* Charges Card */}
-            <div className="lg:col-span-6 glass-card rounded-2xl p-5">
+            <div className="lg:col-span-5 glass-card rounded-2xl p-5">
               <div className="flex items-start justify-between mb-3">
                 <h3 className="text-sm font-medium text-pink-400">Начисления</h3>
                 <p className="text-xs text-white/50">
@@ -192,7 +192,7 @@ export function StoreDashboard() {
             </div>
 
             {/* Summary Card */}
-            <div className="lg:col-span-3 glass-card rounded-2xl p-5">
+            <div className="lg:col-span-2 glass-card rounded-2xl p-5">
               <h3 className="text-sm font-medium text-white/80 mb-5">Списания</h3>
               
               <div className="space-y-6">
