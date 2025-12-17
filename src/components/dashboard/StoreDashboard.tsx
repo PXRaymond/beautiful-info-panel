@@ -145,7 +145,7 @@ export function StoreDashboard() {
           {/* Cards Grid */}
           <div className="grid grid-cols-1 lg:grid-cols-10 gap-4">
             {/* Sales Card */}
-            <div className="lg:col-span-3 glass-card rounded-2xl p-5 bg-teal-500/[0.08] border-teal-400/20">
+            <div className="lg:col-span-3 glass-card rounded-2xl p-5 bg-teal-500/[0.03]">
               <h3 className="text-sm font-medium mb-3 text-emerald-400">Продажи и возвраты</h3>
               <p className="text-2xl font-bold tabular-nums text-emerald-400 mb-4">{formatCurrency(salesTotal)}</p>
               
@@ -159,7 +159,7 @@ export function StoreDashboard() {
             </div>
 
             {/* Charges Card */}
-            <div className="lg:col-span-5 glass-card rounded-2xl p-5 bg-rose-500/[0.08] border-rose-400/20">
+            <div className="lg:col-span-5 glass-card rounded-2xl p-5 bg-rose-500/[0.03]">
               <div className="flex items-start justify-between mb-3">
                 <h3 className="text-sm font-medium text-pink-400">Начисления</h3>
                 <p className="text-xs text-white/50">
@@ -192,7 +192,7 @@ export function StoreDashboard() {
             </div>
 
             {/* Summary Card */}
-            <div className="lg:col-span-2 glass-card rounded-2xl p-5 bg-sky-500/[0.08] border-sky-400/20">
+            <div className="lg:col-span-2 glass-card rounded-2xl p-5 bg-sky-500/[0.03]">
               <h3 className="text-sm font-medium text-white/80 mb-5">Списания</h3>
               
               <div className="space-y-6">
