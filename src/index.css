@@ -6,25 +6,25 @@
 
 @layer base {
   :root {
-    --background: 220 16% 6%;
+    --background: 220 25% 8%;
     --foreground: 0 0% 98%;
 
-    --card: 220 14% 9%;
+    --card: 220 20% 12%;
     --card-foreground: 0 0% 98%;
 
-    --popover: 220 14% 9%;
+    --popover: 220 20% 12%;
     --popover-foreground: 0 0% 98%;
 
     --primary: 0 0% 98%;
-    --primary-foreground: 220 16% 6%;
+    --primary-foreground: 220 25% 8%;
 
-    --secondary: 220 12% 14%;
+    --secondary: 220 15% 18%;
     --secondary-foreground: 0 0% 98%;
 
-    --muted: 220 12% 14%;
-    --muted-foreground: 220 10% 50%;
+    --muted: 220 15% 18%;
+    --muted-foreground: 220 10% 55%;
 
-    --accent: 220 12% 14%;
+    --accent: 220 15% 18%;
     --accent-foreground: 0 0% 98%;
 
     --destructive: 0 72% 55%;
@@ -33,19 +33,19 @@
     --positive: 150 80% 45%;
     --positive-foreground: 0 0% 98%;
 
-    --border: 220 12% 14%;
-    --input: 220 12% 14%;
+    --border: 220 15% 20%;
+    --input: 220 15% 20%;
     --ring: 0 0% 98%;
 
     --radius: 1rem;
 
-    --sidebar-background: 220 16% 5%;
+    --sidebar-background: 220 25% 6%;
     --sidebar-foreground: 0 0% 98%;
     --sidebar-primary: 0 0% 98%;
-    --sidebar-primary-foreground: 220 16% 6%;
-    --sidebar-accent: 220 12% 14%;
+    --sidebar-primary-foreground: 220 25% 8%;
+    --sidebar-accent: 220 15% 18%;
     --sidebar-accent-foreground: 0 0% 98%;
-    --sidebar-border: 220 12% 14%;
+    --sidebar-border: 220 15% 20%;
     --sidebar-ring: 0 0% 98%;
   }
 }
@@ -60,18 +60,7 @@
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     font-feature-settings: "cv02", "cv03", "cv04", "cv11";
     min-height: 100vh;
-    background: hsl(240 15% 6%);
-  }
-
-  .gradient-bg {
-    position: fixed;
-    inset: 0;
-    z-index: 0;
-    pointer-events: none;
-    background: 
-      radial-gradient(circle 800px at 0% 0%, hsl(280 100% 50% / 0.15), transparent),
-      radial-gradient(circle 600px at 100% 100%, hsl(220 100% 50% / 0.12), transparent),
-      radial-gradient(circle 400px at 50% 50%, hsl(340 100% 50% / 0.08), transparent);
+    background: hsl(var(--background));
   }
 }
 
@@ -82,31 +71,37 @@
 }
 
 @layer components {
-  .card-hover {
-    @apply transition-all duration-300;
-  }
-  
-  .card-hover:hover {
-    @apply bg-secondary/80;
-    transform: translateY(-2px);
-  }
-
-  .subtle-glow {
-    box-shadow: 0 0 60px -15px hsl(var(--positive) / 0.15);
+  .gradient-bg {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background: 
+      radial-gradient(circle 900px at 0% 0%, hsl(280 100% 50% / 0.12), transparent),
+      radial-gradient(circle 700px at 100% 100%, hsl(200 100% 50% / 0.1), transparent),
+      radial-gradient(circle 500px at 50% 80%, hsl(330 100% 50% / 0.08), transparent);
   }
 
-  .text-gradient {
-    background: linear-gradient(135deg, hsl(0 0% 100%) 0%, hsl(220 10% 70%) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+  .glass-card {
+    background: hsl(220 20% 12% / 0.6);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid hsl(220 15% 25% / 0.5);
+    box-shadow: 
+      0 4px 30px hsl(0 0% 0% / 0.2),
+      inset 0 1px 0 hsl(0 0% 100% / 0.05);
+  }
+
+  .glass-card:hover {
+    border-color: hsl(220 15% 30% / 0.6);
+    background: hsl(220 20% 14% / 0.7);
   }
 }
 
 @keyframes fade-up {
   from { 
     opacity: 0; 
-    transform: translateY(12px); 
+    transform: translateY(16px); 
   }
   to { 
     opacity: 1; 
@@ -114,23 +109,6 @@
   }
 }
 
-@keyframes number-in {
-  from { 
-    opacity: 0; 
-    transform: scale(0.95); 
-    filter: blur(4px);
-  }
-  to { 
-    opacity: 1; 
-    transform: scale(1); 
-    filter: blur(0);
-  }
-}
-
 .animate-fade-up {
   animation: fade-up 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-}
-
-.animate-number-in {
-  animation: number-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
