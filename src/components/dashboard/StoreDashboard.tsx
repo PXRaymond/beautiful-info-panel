@@ -1,4 +1,4 @@
-import { ArrowUpRight, ChevronDown, Wallet, MapPin, ShoppingBag, RotateCcw, ChevronRight } from "lucide-react";
+import { ArrowUpRight, ChevronDown, Wallet, MapPin, Receipt, ChevronRight } from "lucide-react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 const formatCurrency = (value: number) => {
@@ -109,11 +109,11 @@ export function StoreDashboard() {
   ];
 
   const transactions = [
-    { id: 1, type: "income" as const, product: "Кроссовки Nike Air Max", amount: 8990, time: "12:34" },
-    { id: 2, type: "refund" as const, product: "Футболка Adidas", amount: 2490, time: "11:20" },
-    { id: 3, type: "income" as const, product: "Рюкзак North Face", amount: 5670, time: "10:45" },
-    { id: 4, type: "income" as const, product: "Джинсы Levi's 501", amount: 7890, time: "09:15" },
-    { id: 5, type: "refund" as const, product: "Куртка Columbia", amount: 12340, time: "08:50" },
+    { id: 1, type: "income" as const, product: "Кроссовки Nike Air Max", amount: 8990, txType: "Доставка покупателю" },
+    { id: 2, type: "refund" as const, product: "Футболка Adidas", amount: 2490, txType: "Возврат от покупателя" },
+    { id: 3, type: "income" as const, product: "Рюкзак North Face", amount: 5670, txType: "Эквайринг" },
+    { id: 4, type: "income" as const, product: "Джинсы Levi's 501", amount: 7890, txType: "Доставка покупателю" },
+    { id: 5, type: "refund" as const, product: "Куртка Columbia", amount: 12340, txType: "Возврат от покупателя" },
   ];
   return <div className="min-h-screen relative">
       <div className="gradient-bg" />
@@ -281,17 +281,10 @@ export function StoreDashboard() {
             <div className="flex items-start justify-between mb-5">
               <div>
                 <h3 className="text-sm font-semibold uppercase tracking-wider text-white/90">Последние транзакции</h3>
-                <p className="text-xs text-white/40 mt-0.5">Продажи и возвраты за сегодня</p>
+                <p className="text-xs text-white/40 mt-0.5">История продаж и возвратов</p>
               </div>
-              <div className="flex items-center gap-3">
-                <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-emerald-500/10 border border-emerald-500/20">
-                  <div className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
-                  <span className="text-[10px] font-medium text-emerald-400">Приход</span>
-                </div>
-                <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-rose-500/10 border border-rose-500/20">
-                  <div className="w-1.5 h-1.5 rounded-full bg-rose-400" />
-                  <span className="text-[10px] font-medium text-rose-400">Возврат</span>
-                </div>
+              <div className="w-10 h-10 rounded-xl bg-white/[0.04] border border-white/[0.08] flex items-center justify-center">
+                <Receipt className="w-4 h-4 text-white/40" />
               </div>
             </div>
 
@@ -302,23 +295,15 @@ export function StoreDashboard() {
                   key={tx.id} 
                   className="flex items-center gap-3 p-3 rounded-xl bg-white/[0.02] hover:bg-white/[0.05] border border-transparent hover:border-white/[0.06] transition-all cursor-pointer group"
                 >
-                  {/* Icon */}
-                  <div className={`w-10 h-10 rounded-xl flex items-center justify-center transition-transform group-hover:scale-105 ${
-                    tx.type === "income" 
-                      ? "bg-gradient-to-br from-emerald-500/15 to-emerald-600/5" 
-                      : "bg-gradient-to-br from-rose-500/15 to-rose-600/5"
-                  }`}>
-                    {tx.type === "income" ? (
-                      <ShoppingBag className="w-4 h-4 text-emerald-400" />
-                    ) : (
-                      <RotateCcw className="w-4 h-4 text-rose-400" />
-                    )}
-                  </div>
+                  {/* Indicator */}
+                  <div className={`w-1 h-10 rounded-full ${
+                    tx.type === "income" ? "bg-emerald-400" : "bg-rose-400"
+                  }`} />
                   
                   {/* Product Info */}
                   <div className="flex-1 min-w-0">
                     <p className="text-sm text-white/85 truncate font-medium">{tx.product}</p>
-                    <p className="text-[11px] text-white/35">{tx.time}</p>
+                    <p className="text-[11px] text-white/35">{tx.txType}</p>
                   </div>
                   
                   {/* Amount */}
