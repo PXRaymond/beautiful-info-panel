@@ -109,11 +109,11 @@ export function StoreDashboard() {
   ];
 
   const transactions = [
-    { id: 1, type: "income" as const, product: "Кроссовки Nike Air Max", amount: 8990, txType: "Доставка покупателю" },
-    { id: 2, type: "refund" as const, product: "Футболка Adidas", amount: 2490, txType: "Возврат от покупателя" },
-    { id: 3, type: "income" as const, product: "Рюкзак North Face", amount: 5670, txType: "Эквайринг" },
-    { id: 4, type: "income" as const, product: "Джинсы Levi's 501", amount: 7890, txType: "Доставка покупателю" },
-    { id: 5, type: "refund" as const, product: "Куртка Columbia", amount: 12340, txType: "Возврат от покупателя" },
+    { id: 1, type: "income" as const, product: "Кроссовки Nike Air Max", amount: 8990, txType: "Доставка покупателю", date: "17.12.24" },
+    { id: 2, type: "refund" as const, product: "Футболка Adidas", amount: 2490, txType: "Возврат от покупателя", date: "16.12.24" },
+    { id: 3, type: "income" as const, product: "Рюкзак North Face", amount: 5670, txType: "Эквайринг", date: "15.12.24" },
+    { id: 4, type: "income" as const, product: "Джинсы Levi's 501", amount: 7890, txType: "Доставка покупателю", date: "14.12.24" },
+    { id: 5, type: "refund" as const, product: "Куртка Columbia", amount: 12340, txType: "Возврат от покупателя", date: "13.12.24" },
   ];
   return <div className="min-h-screen relative">
       <div className="gradient-bg" />
@@ -311,7 +311,7 @@ export function StoreDashboard() {
                   {/* Product Info */}
                   <div className="flex-1 min-w-0">
                     <p className="text-sm text-white/85 truncate font-medium">{tx.product}</p>
-                    <p className="text-[11px] text-white/35">{tx.txType}</p>
+                    <p className="text-[11px] text-white/35">{tx.date}</p>
                   </div>
                   
                   {/* Amount */}
@@ -321,6 +321,7 @@ export function StoreDashboard() {
                     }`}>
                       {tx.type === "income" ? "+" : "−"}{formatCurrency(tx.amount)}
                     </span>
+                    <p className="text-[11px] text-white/35 mt-0.5">{tx.txType}</p>
                   </div>
                 </div>
               ))}
