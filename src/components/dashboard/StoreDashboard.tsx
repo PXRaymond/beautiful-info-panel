@@ -1,4 +1,4 @@
-import { ArrowUpRight, ChevronDown, Wallet, MapPin, Receipt, ChevronRight } from "lucide-react";
+import { ArrowUpRight, ChevronDown, Wallet, MapPin, Receipt, ShoppingBag, RotateCcw, ChevronRight } from "lucide-react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 const formatCurrency = (value: number) => {
@@ -295,10 +295,18 @@ export function StoreDashboard() {
                   key={tx.id} 
                   className="flex items-center gap-3 p-3 rounded-xl bg-white/[0.02] hover:bg-white/[0.05] border border-transparent hover:border-white/[0.06] transition-all cursor-pointer group"
                 >
-                  {/* Indicator */}
-                  <div className={`w-1 h-10 rounded-full ${
-                    tx.type === "income" ? "bg-emerald-400" : "bg-rose-400"
-                  }`} />
+                  {/* Icon */}
+                  <div className={`w-10 h-10 rounded-xl flex items-center justify-center transition-transform group-hover:scale-105 ${
+                    tx.type === "income" 
+                      ? "bg-gradient-to-br from-emerald-500/15 to-emerald-600/5" 
+                      : "bg-gradient-to-br from-rose-500/15 to-rose-600/5"
+                  }`}>
+                    {tx.type === "income" ? (
+                      <ShoppingBag className="w-4 h-4 text-emerald-400" />
+                    ) : (
+                      <RotateCcw className="w-4 h-4 text-rose-400" />
+                    )}
+                  </div>
                   
                   {/* Product Info */}
                   <div className="flex-1 min-w-0">
