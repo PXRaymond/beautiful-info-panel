@@ -1,4 +1,4 @@
-import { ArrowUpRight, ChevronDown, Wallet, MapPin } from "lucide-react";
+import { ArrowUpRight, ChevronDown, Wallet, MapPin, ArrowDownLeft, ShoppingBag, RotateCcw } from "lucide-react";
 import { useState } from "react";
 const formatCurrency = (value: number) => {
   return new Intl.NumberFormat('ru-RU').format(Math.abs(value)) + ' ₽';
@@ -105,6 +105,14 @@ export function StoreDashboard() {
     { region: "Москва, МО и Дальние регионы", count: 32, progress: 32/134, color: "bg-violet-500" },
     { region: "Санкт-Петербург и СЗО", count: 12, progress: 12/134, color: "bg-cyan-400" },
     { region: "Ростов", count: 8, progress: 8/134, color: "bg-emerald-400" },
+  ];
+
+  const transactions = [
+    { id: 1, type: "income" as const, product: "Кроссовки Nike Air Max", amount: 8990, time: "12:34" },
+    { id: 2, type: "refund" as const, product: "Футболка Adidas", amount: 2490, time: "11:20" },
+    { id: 3, type: "income" as const, product: "Рюкзак North Face", amount: 5670, time: "10:45" },
+    { id: 4, type: "income" as const, product: "Джинсы Levi's 501", amount: 7890, time: "09:15" },
+    { id: 5, type: "refund" as const, product: "Куртка Columbia", amount: 12340, time: "08:50" },
   ];
   return <div className="min-h-screen relative">
       <div className="gradient-bg" />
@@ -222,8 +230,9 @@ export function StoreDashboard() {
           </div>
         </div>
 
-        {/* Deliveries Panel - Outside main container */}
-        <div className="mt-6 lg:w-[380px]">
+        {/* Bottom Panels Row */}
+        <div className="mt-6 grid grid-cols-1 lg:grid-cols-2 gap-6">
+          {/* Deliveries Panel */}
           <div className="glass-container rounded-2xl p-5 bg-gradient-to-br from-indigo-500/[0.06] via-violet-600/[0.03] to-transparent animate-fade-up">
             {/* Header */}
             <div className="flex items-start justify-between mb-4">
@@ -262,6 +271,76 @@ export function StoreDashboard() {
             <button className="w-full mt-4 py-3 px-4 rounded-xl bg-gradient-to-r from-cyan-500/20 to-emerald-500/20 border border-cyan-400/30 flex items-center justify-center gap-2 text-cyan-400 hover:from-cyan-500/30 hover:to-emerald-500/30 transition-all group">
               <MapPin className="w-4 h-4 group-hover:scale-110 transition-transform" />
               <span className="text-sm font-medium">Посмотреть карту</span>
+            </button>
+          </div>
+
+          {/* Transactions Panel */}
+          <div className="glass-container rounded-2xl p-5 bg-gradient-to-br from-amber-500/[0.06] via-orange-600/[0.03] to-transparent animate-fade-up">
+            {/* Header */}
+            <div className="flex items-start justify-between mb-4">
+              <div>
+                <h3 className="text-sm font-semibold uppercase tracking-wider text-white/90">Последние транзакции</h3>
+                <p className="text-xs text-white/40 mt-0.5">Продажи и возвраты за сегодня</p>
+              </div>
+              <div className="flex items-center gap-2">
+                <div className="flex items-center gap-1 text-xs text-emerald-400">
+                  <div className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+                  <span>Приход</span>
+                </div>
+                <div className="flex items-center gap-1 text-xs text-rose-400">
+                  <div className="w-1.5 h-1.5 rounded-full bg-rose-400" />
+                  <span>Возврат</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Transactions List */}
+            <div className="space-y-2">
+              {transactions.map((tx) => (
+                <div 
+                  key={tx.id} 
+                  className="flex items-center gap-3 bg-white/[0.04] backdrop-blur-sm rounded-xl p-3 border border-white/[0.06] hover:bg-white/[0.06] transition-colors"
+                >
+                  {/* Icon */}
+                  <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${
+                    tx.type === "income" 
+                      ? "bg-emerald-500/20 border border-emerald-500/30" 
+                      : "bg-rose-500/20 border border-rose-500/30"
+                  }`}>
+                    {tx.type === "income" ? (
+                      <ShoppingBag className="w-4 h-4 text-emerald-400" />
+                    ) : (
+                      <RotateCcw className="w-4 h-4 text-rose-400" />
+                    )}
+                  </div>
+                  
+                  {/* Product Info */}
+                  <div className="flex-1 min-w-0">
+                    <p className="text-sm text-white/90 truncate">{tx.product}</p>
+                    <p className="text-xs text-white/40">{tx.time}</p>
+                  </div>
+                  
+                  {/* Amount */}
+                  <div className={`flex items-center gap-1 ${
+                    tx.type === "income" ? "text-emerald-400" : "text-rose-400"
+                  }`}>
+                    {tx.type === "income" ? (
+                      <ArrowUpRight className="w-4 h-4" />
+                    ) : (
+                      <ArrowDownLeft className="w-4 h-4" />
+                    )}
+                    <span className="text-sm font-semibold tabular-nums">
+                      {tx.type === "income" ? "+" : "−"}{formatCurrency(tx.amount)}
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* View All Button */}
+            <button className="w-full mt-4 py-3 px-4 rounded-xl bg-gradient-to-r from-amber-500/20 to-orange-500/20 border border-amber-400/30 flex items-center justify-center gap-2 text-amber-400 hover:from-amber-500/30 hover:to-orange-500/30 transition-all">
+              <span className="text-sm font-medium">Все транзакции</span>
+              <ChevronDown className="w-4 h-4 -rotate-90" />
             </button>
           </div>
         </div>
