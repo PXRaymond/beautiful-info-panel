@@ -1,5 +1,6 @@
-import { ArrowUpRight, ChevronDown, Wallet, MapPin, ArrowDownLeft, ShoppingBag, RotateCcw } from "lucide-react";
+import { ArrowUpRight, ChevronDown, Wallet, MapPin, ShoppingBag, RotateCcw, ChevronRight } from "lucide-react";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 const formatCurrency = (value: number) => {
   return new Intl.NumberFormat('ru-RU').format(Math.abs(value)) + ' ₽';
 };
@@ -275,37 +276,37 @@ export function StoreDashboard() {
           </div>
 
           {/* Transactions Panel */}
-          <div className="glass-container rounded-2xl p-5 bg-gradient-to-br from-amber-500/[0.06] via-orange-600/[0.03] to-transparent animate-fade-up">
+          <div className="glass-container rounded-2xl p-5 bg-gradient-to-br from-slate-500/[0.04] via-slate-600/[0.02] to-transparent animate-fade-up">
             {/* Header */}
-            <div className="flex items-start justify-between mb-4">
+            <div className="flex items-start justify-between mb-5">
               <div>
                 <h3 className="text-sm font-semibold uppercase tracking-wider text-white/90">Последние транзакции</h3>
                 <p className="text-xs text-white/40 mt-0.5">Продажи и возвраты за сегодня</p>
               </div>
-              <div className="flex items-center gap-2">
-                <div className="flex items-center gap-1 text-xs text-emerald-400">
+              <div className="flex items-center gap-3">
+                <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-emerald-500/10 border border-emerald-500/20">
                   <div className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
-                  <span>Приход</span>
+                  <span className="text-[10px] font-medium text-emerald-400">Приход</span>
                 </div>
-                <div className="flex items-center gap-1 text-xs text-rose-400">
+                <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-rose-500/10 border border-rose-500/20">
                   <div className="w-1.5 h-1.5 rounded-full bg-rose-400" />
-                  <span>Возврат</span>
+                  <span className="text-[10px] font-medium text-rose-400">Возврат</span>
                 </div>
               </div>
             </div>
 
             {/* Transactions List */}
-            <div className="space-y-2">
+            <div className="space-y-1.5">
               {transactions.map((tx) => (
                 <div 
                   key={tx.id} 
-                  className="flex items-center gap-3 bg-white/[0.04] backdrop-blur-sm rounded-xl p-3 border border-white/[0.06] hover:bg-white/[0.06] transition-colors"
+                  className="flex items-center gap-3 p-3 rounded-xl bg-white/[0.02] hover:bg-white/[0.05] border border-transparent hover:border-white/[0.06] transition-all cursor-pointer group"
                 >
                   {/* Icon */}
-                  <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${
+                  <div className={`w-10 h-10 rounded-xl flex items-center justify-center transition-transform group-hover:scale-105 ${
                     tx.type === "income" 
-                      ? "bg-emerald-500/20 border border-emerald-500/30" 
-                      : "bg-rose-500/20 border border-rose-500/30"
+                      ? "bg-gradient-to-br from-emerald-500/15 to-emerald-600/5" 
+                      : "bg-gradient-to-br from-rose-500/15 to-rose-600/5"
                   }`}>
                     {tx.type === "income" ? (
                       <ShoppingBag className="w-4 h-4 text-emerald-400" />
@@ -316,20 +317,15 @@ export function StoreDashboard() {
                   
                   {/* Product Info */}
                   <div className="flex-1 min-w-0">
-                    <p className="text-sm text-white/90 truncate">{tx.product}</p>
-                    <p className="text-xs text-white/40">{tx.time}</p>
+                    <p className="text-sm text-white/85 truncate font-medium">{tx.product}</p>
+                    <p className="text-[11px] text-white/35">{tx.time}</p>
                   </div>
                   
                   {/* Amount */}
-                  <div className={`flex items-center gap-1 ${
-                    tx.type === "income" ? "text-emerald-400" : "text-rose-400"
-                  }`}>
-                    {tx.type === "income" ? (
-                      <ArrowUpRight className="w-4 h-4" />
-                    ) : (
-                      <ArrowDownLeft className="w-4 h-4" />
-                    )}
-                    <span className="text-sm font-semibold tabular-nums">
+                  <div className="text-right">
+                    <span className={`text-sm font-semibold tabular-nums ${
+                      tx.type === "income" ? "text-emerald-400" : "text-rose-400"
+                    }`}>
                       {tx.type === "income" ? "+" : "−"}{formatCurrency(tx.amount)}
                     </span>
                   </div>
@@ -338,10 +334,13 @@ export function StoreDashboard() {
             </div>
 
             {/* View All Button */}
-            <button className="w-full mt-4 py-3 px-4 rounded-xl bg-gradient-to-r from-amber-500/20 to-orange-500/20 border border-amber-400/30 flex items-center justify-center gap-2 text-amber-400 hover:from-amber-500/30 hover:to-orange-500/30 transition-all">
+            <Link 
+              to="/transactions"
+              className="w-full mt-4 py-3.5 px-4 rounded-xl bg-white/[0.03] border border-white/[0.08] flex items-center justify-center gap-2 text-white/60 hover:text-white hover:bg-white/[0.06] hover:border-white/[0.12] transition-all group"
+            >
               <span className="text-sm font-medium">Все транзакции</span>
-              <ChevronDown className="w-4 h-4 -rotate-90" />
-            </button>
+              <ChevronRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+            </Link>
           </div>
         </div>
       </div>
